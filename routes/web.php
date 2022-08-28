@@ -54,3 +54,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 // user logout
 Route::get('/user/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
 
+// admin logout
+Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.logout');
+
