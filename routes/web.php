@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MainUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,4 +51,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 });
 
 
+// user logout
+Route::get('/user/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
 

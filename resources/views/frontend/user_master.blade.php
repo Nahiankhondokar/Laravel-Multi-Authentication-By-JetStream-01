@@ -261,7 +261,7 @@
                                 <li><a href=" "><span><i class="fas fa-cogs"></i></span>  Password Change</a></li>
                                 <li>
 
-                                    <a href=" "><span><i class="fas fa-unlock-alt"></i></span> Logout</a></li>
+                                    <a href="{{ route('user.logout') }}"><span><i class="fas fa-unlock-alt"></i></span> Logout</a></li>
                             </ul>
                         </div>
                     </li>
