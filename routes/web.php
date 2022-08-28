@@ -36,7 +36,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('frontend.index');
     })->name('dashboard');
 });
 
@@ -48,4 +48,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
     Route::post('/login', [AdminController::class, 'store']);
 
 });
+
+
 
