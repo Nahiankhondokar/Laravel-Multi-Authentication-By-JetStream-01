@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MainUserController extends Controller
 {
@@ -18,7 +19,7 @@ class MainUserController extends Controller
 
 
     /**
-     *  user logout
+     *  user profile
      */
     public function UserProfile(){
         
@@ -78,9 +79,64 @@ class MainUserController extends Controller
 
 
     /**
-     *  user logout
+     *  user password view
      */
     public function PasswordChange(){
+
+        $id = Auth::user() -> id;
+        $user = User::find($id);
+        return view('frontend.user.password_change', [
+            "user"  => $user
+        ]);
+    }
+
+    /**
+     *  user password update
+     */
+    public function PasswordUpdate(Request $request){
+
+        // validaiton
+        $this -> validate($request, [
+            'old_pass'      => 'required'
+        ], [
+            "old_pass.required"   => "Password Feild is require"
+        ]);
+
+        // checking password
+        if($request -> new_pass != $request -> password_confirmation){
+            // toster msg
+            $msg = [
+                'message'   => "Wrong Password",
+                'alert-type'=> "error"
+            ];
+            return redirect() -> back() -> with($msg);
+        }
+        
+        // find user
+        $hasPass = Auth::user() -> password;
+
+        // password hash
+        if(Hash::check($request -> old_pass, $hasPass)){
+
+            // user find 
+            $user = User::find(Auth::id());
+
+            // user password updated
+            $user -> password  = Hash::make($request -> new_pass);
+            $user -> update();
+            Auth::logout();
+            return redirect() -> route('login');
+        
+        }else {
+
+            // toster msg
+            $msg = [
+                'message'   => "Wrong Password",
+                'alert-type'=> "error"
+            ];
+            return redirect() -> back() -> with($msg);
+        }
+       
         
     }
 

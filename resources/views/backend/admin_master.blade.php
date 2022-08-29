@@ -38,6 +38,10 @@
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('backend/css/starlight.css') }}">
+
+    {{-- Toster css file --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
   </head>
 
   <body>
@@ -71,6 +75,11 @@
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 
+    <!-- jquery -->
+    <script src="{{ asset('backend/js/jquery.min.js') }}"></script>
+    {{-- // custom js --}}
+    <script src="{{ asset('backend/js/custom.js') }}"></script>
+
     <script src="{{ asset('backend/lib/jquery/jquery.js') }}"></script>
     <script src="{{ asset('backend/lib/popper.js/popper.js') }}"></script>
     <script src="{{ asset('backend/lib/bootstrap/bootstrap.js') }}"></script>
@@ -88,5 +97,42 @@
     <script src="{{ asset('backend/js/starlight.js') }}"></script>
     <script src="{{ asset('backend/js/ResizeSensor.js') }}"></script>
     <script src="{{ asset('backend/js/dashboard.js') }}"></script>
+
+    {{-- Toster js file --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+      {{-- // Toster --}}
+    <script>
+
+        @if (Session::has('message'))
+
+        let type = "{{ Session::get('alert-type', 'info') }}"
+
+        switch(type){
+
+            case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+
+            case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+            case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+            case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;  
+
+
+        }
+            
+        @endif
+    </script>
+
+
   </body>
 </html>

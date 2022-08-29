@@ -8,7 +8,7 @@
     <h3  class="text-center">User Edit</h3>
     <div class="form-group">
       <label for="exampleInputEmail1">User Name</label>
-      <input value="{{ $user -> name }}" name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <input value="{{ $user -> name }}" name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User name">
       
     </div>
     <div class="form-group">

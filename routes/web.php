@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MainAdminController;
 use App\Http\Controllers\MainUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +56,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 Route::group(['prefix' => 'user'], function(){
     Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
     Route::get('/profile', [MainUserController::class, "UserProfile"]) -> name('user.profile');
-    Route::post('/password/change', [MainUserController::class, "PasswordChange"]) -> name('user.pass.change');
+    Route::get('/password/change', [MainUserController::class, "PasswordChange"]) -> name('user.password.view');
+    Route::post('/password/update', [MainUserController::class, "PasswordUpdate"]) -> name('user.password.update');
     Route::get('/profile/edit/{id}', [MainUserController::class, "UserProfileEdit"]) -> name('user.profile.edit');
     Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
 });
@@ -64,3 +66,13 @@ Route::group(['prefix' => 'user'], function(){
 // admin rotues
 Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.logout');
 
+Route::group(['prefix'  => 'admin'], function(){
+
+    Route::get('/profile', [MainAdminController::class, "AdminProfile"]) -> name('admin.profile');
+    Route::get('/profile/edit', [MainAdminController::class, "AdminProfileEdit"]) -> name('admin.profile.edit');
+    Route::post('/profile/update/{id}', [MainAdminController::class, "AdminProfileUpdate"]) -> name('admin.profile.update');
+
+    Route::get('/password/change', [MainAdminController::class, "PasswordChangeView"]) -> name('admin.pass.view');
+    Route::post('/password/update', [MainAdminController::class, "PasswordUpdate"]) -> name('admin.pass.update');
+
+});
